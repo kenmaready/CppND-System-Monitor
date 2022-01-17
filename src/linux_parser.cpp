@@ -282,13 +282,15 @@ long LinuxParser::UpTime(int pid[[maybe_unused]]) {
       int i {0};
       while(linestream >> token) {
         if (i==21) {
-          return stol(token);
+          // cout << "found uptime: " << token << endl;
+          return stol(token) / kHertz;
         }
+        i++;
       }
     }
   }
   
-  return 1; 
+  return 0; 
 }
 
 

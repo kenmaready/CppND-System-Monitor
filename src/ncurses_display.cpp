@@ -11,6 +11,17 @@
 using std::string;
 using std::to_string;
 
+// helper function to pad a string with spaces to fill up width of cell
+// (to avoid formatting issue where remnants of prior value can sometimes
+// appear if new value is shorter in characters than former value):
+std::string padTo(std::string s, int col_size) {
+  if ((int)s.size() < col_size) {
+    s.insert(s.size(), col_size - s.size(), ' ');
+  }
+
+  return s;
+}
+
 // 50 bars uniformly displayed from 0 - 100 %
 // 2% is one bar(|)
 std::string NCursesDisplay::ProgressBar(float percent) {
@@ -71,17 +82,18 @@ void NCursesDisplay::DisplayProcesses(std::vector<Process>& processes,
   wattroff(window, COLOR_PAIR(2));
   int const num_processes = int(processes.size()) > n ? n : processes.size();
   for (int i = 0; i < num_processes; ++i) {
-    mvwprintw(window, ++row, pid_column, to_string(processes[i].Pid()).c_str());
-    mvwprintw(window, row, user_column, processes[i].User().c_str());
+    mvwprintw(window, ++row, pid_column, (padTo(to_string(processes[i].Pid()), pid_column).c_str()));
+    mvwprintw(window, row, user_column, (padTo(processes[i].User(), user_column).c_str()));
     float cpu = processes[i].CpuUtilization() * 100;
-    mvwprintw(window, row, cpu_column, to_string(cpu).substr(0, 4).c_str());
-    mvwprintw(window, row, ram_column, to_string(processes[i].Ram()).c_str());
+    mvwprintw(window, row, cpu_column, (padTo(to_string(cpu).substr(0, 4), cpu_column)).c_str());
+    mvwprintw(window, row, ram_column, (padTo(to_string(processes[i].Ram()), ram_column).c_str()));
     mvwprintw(window, row, time_column,
               Format::ElapsedTime(processes[i].UpTime()).c_str());
     mvwprintw(window, row, command_column,
               processes[i].Command().substr(0, window->_maxx - 46).c_str());
   }
 }
+
 
 void NCursesDisplay::Display(System& system, int n) {
   initscr();      // start ncurses

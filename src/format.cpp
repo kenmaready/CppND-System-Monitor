@@ -18,5 +18,5 @@ string Format::ElapsedTime(long seconds) {
     seconds = seconds % kHour;
     minutes = seconds / kMinute;
     seconds = seconds % kMinute;
-    return to_string(hours) + ":" + (minutes >= 10 ? "" : "0") + to_string(minutes) + ":" + (seconds >= 10 ? "" : "0") + to_string(seconds); 
+    return (hours >= 10 ? "" : "0") + to_string(hours) + ":" + (minutes >= 10 ? "" : "0") + to_string(minutes) + ":" + (seconds >= 10 ? "" : "0") + to_string(seconds); 
 }

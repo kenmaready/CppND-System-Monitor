@@ -35,6 +35,7 @@ vector<Process>& System::Processes() {
         process.command_ = LinuxParser::Command(pid);
         process.cpuutilization_ = LinuxParser::CpuUtilization(pid);
         process.ram_ = LinuxParser::Ram(pid);
+        process.uptime_ = LinuxParser::UpTime(pid);
 
         processes_.emplace_back(process);
     }
