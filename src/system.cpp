@@ -23,21 +23,14 @@ Processor& System::Cpu() { return cpu_; }
 
 // TODO (Completed): Return a container composed of the system's processes
 vector<Process>& System::Processes() { 
+    // clear out current vector of processes before rebuilding:
+    clearProcesses_();
+
     // get the pids from the /proc directory and then, for each, 
     // add a new Process object to the Processes vector
     vector<int> pids = LinuxParser::Pids();
     for (int pid : pids) {
-        Process process;
-        process.pid_ = pid;
-
-        // get the user:
-        process.user_ = LinuxParser::User(pid);
-        process.command_ = LinuxParser::Command(pid);
-        process.cpuutilization_ = LinuxParser::CpuUtilization(pid);
-        process.ram_ = LinuxParser::Ram(pid);
-        process.uptime_ = LinuxParser::UpTime(pid);
-
-        processes_.emplace_back(process);
+        processes_.emplace_back(pid);
     }
 
     // sort and return:
@@ -62,3 +55,6 @@ int System::TotalProcesses() { return LinuxParser::TotalProcesses(); }
 
 // TODO (Completed): Return the number of seconds since the system started running
 long System::UpTime() { return LinuxParser::UpTime(); }
+
+// new function to clear processes_ vector:
+void System::clearProcesses_() { processes_ = {}; }

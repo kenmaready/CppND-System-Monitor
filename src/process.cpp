@@ -5,10 +5,23 @@
 #include <vector>
 
 #include "process.h"
+#include "linux_parser.h"
 
 using std::string;
 using std::to_string;
 using std::vector;
+
+// Constructor for Process (stared with pid):
+Process::Process(int pid): pid_(pid) {
+    pid_ = pid;
+
+    // get the user:
+    user_ = LinuxParser::User(pid);
+    command_ = LinuxParser::Command(pid);
+    cpuutilization_ = LinuxParser::CpuUtilization(pid);
+    ram_ = LinuxParser::Ram(pid);
+    uptime_ = LinuxParser::UpTime(pid);
+}
 
 // TODO (COMPLETED): Return this process's ID
 int Process::Pid() { return pid_; }
