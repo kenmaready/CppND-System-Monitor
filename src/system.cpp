@@ -20,7 +20,7 @@ using std::endl;
 // TODO: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
-// TODO: Return a container composed of the system's processes
+// TODO (Completed): Return a container composed of the system's processes
 vector<Process>& System::Processes() { 
     // get the pids from the /proc directory and then, for each, 
     // add a new Process object to the Processes vector
@@ -43,20 +43,20 @@ vector<Process>& System::Processes() {
     return processes_; 
 }
 
-// TODO: Return the system's kernel identifier (string)
+// TODO (Completed): Return the system's kernel identifier (string)
 std::string System::Kernel() { return LinuxParser::Kernel(); }
 
-// TODO: Return the system's memory utilization
+// TODO (Completed): Return the system's memory utilization
 float System::MemoryUtilization() { return LinuxParser::MemoryUtilization(); }
 
-// TODO: Return the operating system name
+// TODO (COmpleted): Return the operating system name
 std::string System::OperatingSystem() { return LinuxParser::OperatingSystem(); }
 
-// TODO: Return the number of processes actively running on the system
+// TODO (Completed): Return the number of processes actively running on the system
 int System::RunningProcesses() { return LinuxParser::RunningProcesses(); }
 
-// TODO: Return the total number of processes on the system
+// TODO (Completed): Return the total number of processes on the system
 int System::TotalProcesses() { return LinuxParser::TotalProcesses(); }
 
-// TODO: Return the number of seconds since the system started running
+// TODO (Completed): Return the number of seconds since the system started running
 long System::UpTime() { return LinuxParser::UpTime(); }
