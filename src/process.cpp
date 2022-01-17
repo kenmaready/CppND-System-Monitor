@@ -20,7 +20,7 @@ float Process::CpuUtilization() { return cpuutilization_; }
 string Process::Command() { return command_; }
 
 // TODO: Return this process's memory utilization
-string Process::Ram() { return string(); }
+int Process::Ram() { return ram_; }
 
 // TODO (Completed): Return the user (name) that generated this process
 string Process::User() { return user_; }
@@ -30,4 +30,7 @@ long int Process::UpTime() { return 0; }
 
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
-bool Process::operator<(Process const& a[[maybe_unused]]) const { return true; }
+bool Process::operator<(Process const& a[[maybe_unused]]) const { 
+    // sort by cpu utilization (use "V" so that vector is in descending order):
+    return cpuutilization_ > a.cpuutilization_; 
+}

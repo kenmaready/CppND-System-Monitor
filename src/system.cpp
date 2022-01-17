@@ -13,6 +13,7 @@
 using std::set;
 using std::size_t;
 using std::string;
+using std::to_string;
 using std::vector;
 using std::cout;
 using std::endl;
@@ -33,13 +34,13 @@ vector<Process>& System::Processes() {
         process.user_ = LinuxParser::User(pid);
         process.command_ = LinuxParser::Command(pid);
         process.cpuutilization_ = LinuxParser::CpuUtilization(pid);
+        process.ram_ = LinuxParser::Ram(pid);
 
         processes_.emplace_back(process);
     }
 
-    auto sort_by_utilization = [](Process a, Process b){ return a.CpuUtilization() > b.CpuUtilization(); };
-    std::sort(processes_.begin(), processes_.end(), sort_by_utilization);
-
+    // sort and return:
+    std::sort(processes_.begin(), processes_.end());
     return processes_; 
 }
 
