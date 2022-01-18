@@ -11,39 +11,45 @@ using std::string;
 using std::to_string;
 using std::vector;
 
-// Constructor for Process (stared with pid):
+// Constructor for Process class based on pid:
 Process::Process(int pid): pid_(pid) {
     pid_ = pid;
 
-    // get the user:
+    // get the information to complete the Process object 
+    // from the proc files:
     user_ = LinuxParser::User(pid);
     command_ = LinuxParser::Command(pid);
     cpuutilization_ = LinuxParser::CpuUtilization(pid);
     ram_ = LinuxParser::Ram(pid);
-    uptime_ = LinuxParser::UpTime(pid);
+    uptime_ = LinuxParser::UpTime() - LinuxParser::UpTime(pid);
 }
 
-// TODO (COMPLETED): Return this process's ID
+// Return this process's ID
 int Process::Pid() { return pid_; }
 
-// TODO: Return this process's CPU utilization
+// Return this process's CPU utilization
 float Process::CpuUtilization() { return cpuutilization_; }
 
-// TODO (Completed): Return the command that generated this process
-string Process::Command() { return command_; }
+//  Return the command that generated this process
+//  Truncate first if necessary
+string Process::Command() {
 
-// TODO: Return this process's memory utilization
+    if ((int)(command_.length()) > MAX_COMMAND_LENGTH_) {
+        return command_.substr(0, MAX_COMMAND_LENGTH_) + "...";
+    } else return command_; 
+}
+
+// Return this process's memory utilization
 int Process::Ram() { return ram_; }
 
-// TODO (Completed): Return the user (name) that generated this process
+// Return the user (name) that generated this process
 string Process::User() { return user_; }
 
-// TODO: Return the age of this process (in seconds)
+// Return the age of this process (in seconds)
 long int Process::UpTime() { return uptime_; }
 
-// TODO: Overload the "less than" comparison operator for Process objects
-// REMOVE: [[maybe_unused]] once you define the function
-bool Process::operator<(Process const& a[[maybe_unused]]) const { 
+// Overload the "less than" comparison operator for Process objects
+bool Process::operator<(Process const& a) const { 
     // sort by cpu utilization (use "V" so that vector is in descending order):
     return cpuutilization_ > a.cpuutilization_; 
 }

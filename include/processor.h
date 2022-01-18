@@ -9,12 +9,11 @@ using std::endl;
 
 class Processor {
  public:
-  float Utilization();  // TODO: See src/processor.cpp
+  float Utilization();  
 
-  // TODO: Declare any necessary private members
  private:
-    // initialize to vector of zeros    
-    std::vector<unsigned long int> currentJiffies_ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    // currentJiffies must be initialized to vector of zeros    
+    std::vector<unsigned long int> currentJiffies_ = std::vector<unsigned long int>(10);
     float currentUtilization_;
 };
 

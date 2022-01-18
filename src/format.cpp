@@ -5,10 +5,8 @@
 using std::string;
 using std::to_string;
 
-// TODO (COMPLETED): Complete this helper function
-// INPUT: Long int measuring seconds
-// OUTPUT: HH:MM:SS
-// REMOVE: [[maybe_unused]] once you define the function
+// Helper function to display tim in HH:MM:SS format
+// Could also use cstd::hrono library as an alternative
 string Format::ElapsedTime(long seconds) {
     int kMinute = 60;
     int kHour = 60 * kMinute;

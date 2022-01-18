@@ -4,7 +4,7 @@
 using LinuxParser::ActiveJiffies;
 using LinuxParser::Jiffies;
 
-// TODO: Return the aggregate CPU utilization
+// Return the aggregate CPU utilization
 float Processor::Utilization() {
     // store "previous current" jiffy vector in variable for use in determinig
     // incremental changes to jiffies (tof better current measure of SPI usage):
